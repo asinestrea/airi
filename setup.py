@@ -5,16 +5,16 @@ def read( path ):
 		return f.read()
 
 setup(
-	name = 'airi',
+	name = 'gvpp',
 	version = '1.1.1',
 	description = 'A tool to create animated graph visualizations, based on graphviz, based on legacy source code of gvanim - Massimo Santini',
 	long_description = read('README.md'),
 	long_description_content_type='text/markdown',
 	author = 'Sinestrea',
 	author_email = 'git.sinestrea@gmail.com',
-	url = 'https://github.com/asinestrea/airi',
+	url = 'https://github.com/asinestrea/gvpp',
 	license = 'GNU/GPLv3',
-	packages = ['airi'],
+	packages = ['gvpp'],
 	keywords = 'drawing graph animation',
 	classifiers = [
 		'Development Status :: 5 - Production/Stable',

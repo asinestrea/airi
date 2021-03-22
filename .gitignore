@@ -2,8 +2,8 @@
 dist/
 __pycache__/
 .DS_Store
-airi.egg-info
-airi.egg-info
+gvpp.egg-info
+gvpp.egg-info
 build
 *.png
 *.gif
