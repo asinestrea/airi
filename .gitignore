@@ -1,0 +1,9 @@
+.envrc
+dist/
+__pycache__/
+.DS_Store
+airi.egg-info
+airi.egg-info
+build
+*.png
+*.gif
