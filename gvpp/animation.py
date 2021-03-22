@@ -40,6 +40,7 @@ class Step( object ):
 			self.lE = dict()
 		self.hV = dict()
 		self.hE = dict()
+		self.gvfV = dict()
 
 	def node_format( self, v ):
 		fmt = []
@@ -49,6 +50,8 @@ class Step( object ):
 			fmt.append( 'color={}'.format( self.hV[ v ] ) )
 		elif v not in self.V:
 			fmt.append( 'style=invis' )
+		if v in self.gvfV:
+			fmt.append( self.gvfV[ v ] )
 		if fmt:
 			return '[{}]'.format( ', '.join( fmt ) )
 		return ''
@@ -79,9 +82,12 @@ class Animation( object ):
 	def next_step( self, clean = False ):
 		self._actions.append( action.NextStep( clean ) )
 
-	def add_node( self, v ):
-		self._actions.append( action.AddNode( v ) )
+	def add_node( self, v, gvfmt = 'shape=oval' ):
+		self._actions.append( action.AddNode( v, gvfmt ) )
 
+	def gvformat_node( self, v, fmt ):
+		self._actions.append( action.GvFormatNode( v, fmt ) )
+    
 	def highlight_node( self, v, color = 'red' ):
 		self._actions.append( action.HighlightNode( v, color = color ) )
 

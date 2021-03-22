@@ -20,32 +20,33 @@ from random import sample
 from gvpp import Animation, render, gif
 
 if __name__ == '__main__':
-    N = range( 6 )
-    K = 3
-
-    G = dict( ( v, sample( N, K ) ) for v in N )
 
     ga = Animation()
+    
     ga.set_direction("LR")
-    for v, adj in G.items():
-        for u in adj:
-            ga.add_edge( v, u )
+    
+    ga.add_node("A")
+    ga.gvformat_node("A", "shape=square")
+    ga.add_node("B")
+    ga.add_node("C")
+    ga.add_node("D")
+    
+    ga.add_edge("A", "B")
+    ga.add_edge("B", "C")
+    ga.add_edge("A", "D")
+    
     ga.next_step()
 
-    seen = [ False for v in  N ]
-    def dfv( v ):
-        ga.highlight_node( v )
-        ga.next_step()
-        seen[ v ] = True
-        for u in G[ v ]:
-            if not seen[ u ]:
-                ga.highlight_node( v )
-                ga.highlight_edge( v, u )
-                ga.next_step()
-                dfv( u )
 
-    dfv( 0 )
+    for v in ["A", "B", "C", "D"]:
+        ga.highlight_node( v )
+        ga.gvformat_node("A", "shape=square")
+        if v != "D":
+            ga.next_step()
 
     graphs = ga.graphs()
+
+    print(graphs)
+
     files = render( graphs, 'dfv', 'png' )
     gif( files, 'dfv', 50 )

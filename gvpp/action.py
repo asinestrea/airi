@@ -23,10 +23,20 @@ class NextStep( object ):
 		steps.append( Step( None if self.clean else steps[ -1 ] ) )
 
 class AddNode( object ):
-	def __init__( self, v ):
+	def __init__( self, v, gvfmt ):
 		self.v = v
+		self.gvfmt = gvfmt
 	def __call__( self, steps ):
 		steps[ -1 ].V.add( self.v )
+		steps[ -1 ].gvfV[ self.v ] = self.gvfmt
+
+class GvFormatNode( object ):
+	def __init__( self, v, fmt = 'shape=oval' ):
+		self.v = v
+		self.fmt = fmt
+	def __call__( self, steps ):
+		steps[ -1 ].V.add( self.v )
+		steps[ -1 ].gvfV[ self.v ] = self.fmt
 
 class HighlightNode( object ):
 	def __init__( self, v, color = 'red' ):
