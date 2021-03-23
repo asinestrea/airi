@@ -6,7 +6,7 @@ def read( path ):
 
 setup(
 	name = 'gvpp',
-	version = '1.1.1',
+	version = '1.1.2',
 	description = 'A tool to create animated graph visualizations, based on graphviz, based on legacy source code of gvanim - Massimo Santini',
 	long_description = read('README.md'),
 	long_description_content_type='text/markdown',
