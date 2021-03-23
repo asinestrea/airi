@@ -27,6 +27,8 @@ if __name__ == '__main__':
     
     ga.add_node("A")
     ga.gvformat_node("A", "shape=square")
+    ga.add_node("E")
+    ga.gvformat_node("E", 'shape=square,label="\l- short \l - long long long bullet \l - medium bullet\l"')
     ga.add_node("B")
     ga.add_node("C")
     ga.add_node("D")
@@ -40,13 +42,14 @@ if __name__ == '__main__':
 
     for v in ["A", "B", "C", "D"]:
         ga.highlight_node( v )
+        ga.gvformat_node("E", 'shape=square,label="- short \l - long long long bullet \l - medium bullet\l"')
         ga.gvformat_node("A", "shape=square")
         if v != "D":
             ga.next_step()
 
     graphs = ga.graphs()
 
-    print(graphs)
+    print("%s" % graphs)
 
     files = render( graphs, 'dfv', 'png' )
     gif( files, 'dfv', 50 )

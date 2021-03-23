@@ -33,14 +33,15 @@ class Step( object ):
 			self.E = step.E.copy()
 			self.lV = step.lV.copy()
 			self.lE = step.lE.copy()
+			self.gvfV = step.gvfV.copy()
 		else:
 			self.V = set()
 			self.E = set()
 			self.lV = dict()
 			self.lE = dict()
+			self.gvfV = dict()
 		self.hV = dict()
 		self.hE = dict()
-		self.gvfV = dict()
 
 	def node_format( self, v ):
 		fmt = []
@@ -77,7 +78,8 @@ class Animation( object ):
 		self._actions = []
 		# https: // graphviz.org/doc/info/attrs.html  # k:rankdir
 		# "TB", "LR", "BT", "RL"
-		self._rankdir = 'TB';
+		self._rankdir = 'TB'
+		self._rank_same = []
 
 	def next_step( self, clean = False ):
 		self._actions.append( action.NextStep( clean ) )
@@ -117,6 +119,9 @@ class Animation( object ):
 	
 	def set_direction(self, dir):
 		self._rankdir = dir
+
+	def rank_same(self, group):
+		self._rank_same.append(group)
 
 	def parse( self, lines ):
 		action2method = {
@@ -160,6 +165,7 @@ class Animation( object ):
 		for n, s in enumerate( steps ):
 			graph = [ 'digraph G {' ]
 			graph.append('rankdir='+self._rankdir)
+			for group in self._rank_same: graph.append( '{{rank = same; {};}};'.format('; '.join(group)) )
 			for v in V: graph.append( '"{}" {};'.format( quote( str( v ) ), s.node_format( v ) ) )
 			for e in E: graph.append( '"{}" -> "{}" {};'.format( quote( str( e[ 0 ] ) ), quote( str( e[ 1 ] ) ), s.edge_format( e ) ) )
 			graph.append( '}' )
